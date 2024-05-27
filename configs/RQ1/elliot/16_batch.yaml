@@ -1,0 +1,22 @@
+---
+experiment:
+  dataset: bpr-netflix
+  data_config:
+    strategy: fixed
+    train_path: ../data/elliot/train.tsv
+    test_path: ../data/elliot/test.tsv
+  top_k: 1000
+  evaluation:
+    simple_metrics: [AUC]
+  models:
+    BPRMF_batch:
+      meta:
+        save_recs: true
+      seed: 13
+      epochs: 100
+      batch_size: 16
+      factors: 16
+      lr: 0.010365991954716354
+      l_w: 0.005660618492234851
+      l_b: 0.005660618492234851
+      random_seed: 13

@@ -1,0 +1,114 @@
+---
+num_users: &num_users {{ (num_users | int) + 1 }}
+num_items: &num_items {{ (num_items | int) + 1 }}
+
+experiment:
+  _target_: experiments.libraries.lightfm.Experiment
+  metrics:
+    ndcg@100:
+      _target_: src.metrics.NDCG
+      topk: 100
+    recall@100:
+      _target_: src.metrics.Recall
+      topk: 100
+    ndcg@10:
+      _target_: src.metrics.NDCG
+      topk: 10
+    recall@10:
+      _target_: src.metrics.Recall
+      topk: 10
+    auc:
+      _target_: src.metrics.RocAucManySlow
+    ndcg@5:
+      _target_: src.metrics.NDCG
+      topk: 5
+    recall@5:
+      _target_: src.metrics.Recall
+      topk: 5
+    recall@20:
+      _target_: src.metrics.Recall
+      topk: 20
+    ndcg@50:
+      _target_: src.metrics.NDCG
+      topk: 50
+    recall@50:
+      _target_: src.metrics.Recall
+      topk: 50
+    precision@5:
+      _target_: src.metrics.Precision
+      topk: 5
+    precision@10:
+      _target_: src.metrics.Precision
+      topk: 10
+    precision@50:
+      _target_: src.metrics.Precision
+      topk: 50
+    precision@100:
+      _target_: src.metrics.Precision
+      topk: 100
+
+optuna:
+  model.epochs:
+    dtype: int
+    low: 50
+    high: 700
+  model.inner_model.learning_rate:
+    dtype: float
+    low: !!float 1e-5
+    high: !!float 5e-2
+  model.inner_model.user_alpha:
+    dtype: float
+    low: !!float 1e-6
+    high: !!float 1e-2
+  model.inner_model.item_alpha:
+    dtype: float
+    low: !!float 1e-6
+    high: !!float 1e-2
+
+datasets:
+  train: {{ dataset }}/full-train-with-fold-in.jsonl
+  eval:
+    _target_: torch.utils.data.DataLoader
+    dataset:
+      _target_: experiments.bpr.dataset.InMemory
+      path: {{ dataset }}/test-grouped.jsonl
+      seen_items_path: {{ dataset }}/full-train-with-fold-in-user-seen-items.jsonl
+    collate_fn:
+      _target_: experiments.bpr.dataset.AllItemsCollator
+      num_items: *num_items
+    batch_size: 128
+    shuffle: false
+    pin_memory: true
+    num_workers: 3
+
+optuna_datasets:
+  train: {{ dataset }}/train-with-fold-in.jsonl
+  eval:
+    _target_: torch.utils.data.DataLoader
+    dataset:
+      _target_: experiments.bpr.dataset.InMemory
+      path: {{ dataset }}/eval-grouped.jsonl
+      seen_items_path: {{ dataset }}/train-with-fold-in-user-seen-items.jsonl
+    collate_fn:
+      _target_: experiments.bpr.dataset.AllItemsCollator
+      num_items: *num_items
+    batch_size: 128
+    shuffle: false
+    pin_memory: true
+    num_workers: 3
+
+model:
+  _target_: experiments.libraries.lightfm.Model
+  inner_model:
+    _target_: lightfm.LightFM
+    loss: bpr
+    no_components: {{ embedding_dim | int }}
+    learning_rate: 0.001
+    learning_schedule: adagrad
+    user_alpha: 0.0025
+    item_alpha: 0.0025
+    random_state: {{ seed }}
+  num_users: *num_users
+  num_items: *num_items
+  epochs: 10
+  num_threads: {{ (num_threads | default(10, true)) | int }}

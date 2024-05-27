@@ -1,0 +1,123 @@
+---
+experiment:
+  _target_: experiments.libraries.cornac.Experiment
+  metrics:
+    ndcg@100:
+      _target_: src.metrics.NDCG
+      topk: 100
+    recall@100:
+      _target_: src.metrics.Recall
+      topk: 100
+    ndcg@10:
+      _target_: src.metrics.NDCG
+      topk: 10
+    recall@10:
+      _target_: src.metrics.Recall
+      topk: 10
+    auc:
+      _target_: src.metrics.RocAucManySlow
+    ndcg@5:
+      _target_: src.metrics.NDCG
+      topk: 5
+    recall@5:
+      _target_: src.metrics.Recall
+      topk: 5
+    recall@20:
+      _target_: src.metrics.Recall
+      topk: 20
+    ndcg@50:
+      _target_: src.metrics.NDCG
+      topk: 50
+    recall@50:
+      _target_: src.metrics.Recall
+      topk: 50
+    precision@5:
+      _target_: src.metrics.Precision
+      topk: 5
+    precision@10:
+      _target_: src.metrics.Precision
+      topk: 10
+    precision@50:
+      _target_: src.metrics.Precision
+      topk: 50
+    precision@100:
+      _target_: src.metrics.Precision
+      topk: 100
+  cornac_metrics:
+    auc:
+      _target_: cornac.metrics.AUC
+    ndcg@5:
+      _target_: cornac.metrics.NDCG
+      k: 5
+    ndcg@10:
+      _target_: cornac.metrics.NDCG
+      k: 10
+    ndcg@20:
+      _target_: cornac.metrics.NDCG
+      k: 20
+    ndcg@50:
+      _target_: cornac.metrics.NDCG
+      k: 50
+    ndcg@100:
+      _target_: cornac.metrics.NDCG
+      k: 100
+    recall@5:
+      _target_: cornac.metrics.Recall
+      k: 5
+    recall@10:
+      _target_: cornac.metrics.Recall
+      k: 10
+    recall@20:
+      _target_: cornac.metrics.Recall
+      k: 20
+    recall@50:
+      _target_: cornac.metrics.Recall
+      k: 50
+    recall@100:
+      _target_: cornac.metrics.Recall
+      k: 100
+    precision@5:
+      _target_: cornac.metrics.Precision
+      k: 5
+    precision@10:
+      _target_: cornac.metrics.Precision
+      k: 10
+    precision@20:
+      _target_: cornac.metrics.Precision
+      k: 20
+    precision@50:
+      _target_: cornac.metrics.Precision
+      k: 50
+    precision@100:
+      _target_: cornac.metrics.Precision
+      k: 100
+
+optuna:
+  model.max_iter:
+    dtype: int
+    low: 50
+    high: 700
+  model.learning_rate:
+    dtype: float
+    low: !!float 1e-5
+    high: !!float 5e-2
+  model.lambda_reg:
+    dtype: float
+    low: !!float 1e-6
+    high: !!float 1e-2
+
+datasets:
+  train: {{ dataset }}/full-train.jsonl
+  eval: {{ dataset }}/test-grouped.jsonl
+
+optuna_datasets:
+  train: {{ dataset }}/train.jsonl
+  eval: {{ dataset }}/eval-grouped.jsonl
+
+model:
+  _target_: cornac.models.BPR
+  k: {{ embedding_dim | int }}
+  learning_rate: 0.001
+  max_iter: 10
+  lambda_reg: 0.0025
+  num_threads: {{ num_threads | default(10, true) }}

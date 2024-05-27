@@ -1,0 +1,79 @@
+---
+num_users: &num_users {{ (num_users | int) + 1 }}
+num_items: &num_items {{ (num_items | int) + 1 }}
+
+experiment:
+  _target_: experiments.libraries.recbole.Experiment
+  skip_seen: false
+  metrics:
+    auc:
+      _target_: src.metrics.RocAucOne
+
+optuna:
+  recbole_config.epochs:
+    dtype: int
+    low: 50
+    high: 200
+  recbole_config.learning_rate:
+    dtype: float
+    low: !!float 1e-5
+    high: !!float 5e-2
+  recbole_config.weight_decay:
+    dtype: float
+    low: !!float 0.0
+    high: !!float 1e-2
+
+datasets:
+  train: recbole-full-train
+  eval:
+    _target_: torch.utils.data.DataLoader
+    dataset:
+      _target_: experiments.libraries.recbole.dataset.NetflixIter
+      path: {{ dataset }}/eval.jsonl
+    collate_fn:
+      _target_: experiments.libraries.recbole.dataset.OnePosCollator
+      num_items: *num_items
+    batch_size: 1
+    shuffle: false
+    pin_memory: true
+    num_workers: 1
+optuna_datasets:
+  train: recbole-train
+  eval:
+    _target_: torch.utils.data.DataLoader
+    dataset:
+      _target_: experiments.libraries.recbole.dataset.NetflixIter
+      path: {{ dataset }}/eval.jsonl
+    collate_fn:
+      _target_: experiments.libraries.recbole.dataset.OnePosCollator
+      num_items: *num_items
+    batch_size: 1
+    shuffle: false
+    pin_memory: true
+    num_workers: 1
+
+recbole_config:
+  checkpoint_dir: {{ exp_dir }}
+  USER_ID_FIELD: user_id
+  ITEM_ID_FIELD: item_id
+  load_col:
+    inter: [user_id, item_id]
+  user_inter_num_interval: "[0, inf)"
+  eval_args:
+    group_by: user
+    order: RO
+    split: {'RS': [1.0, 0.0, 0.0]}
+    mode: full
+  model: BPR
+  embedding_size: {{ embedding_dim | int }}
+  epochs: 100
+  learner: adam
+  learning_rate: 0.0001
+  weight_decay: 0.001
+  train_batch_size: 16
+  train_neg_sample_args:
+    distribution: uniform
+    sample_num: 1
+    alpha: 1.0
+    dynamic: False
+    candidate_num: 0

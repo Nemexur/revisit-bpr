@@ -1,0 +1,67 @@
+---
+num_users: &num_users {{ (num_users | int) + 1 }}
+num_items: &num_items {{ (num_items | int) + 1 }}
+
+experiment:
+  _target_: experiments.libraries.implicit.Experiment
+  skip_seen: false
+  metrics:
+    auc:
+      _target_: src.metrics.RocAucOne
+
+optuna:
+  model.inner_model.iterations:
+    dtype: int
+    low: 50
+    high: 1000
+  model.inner_model.learning_rate:
+    dtype: float
+    low: !!float 1e-5
+    high: !!float 5e-2
+  model.inner_model.regularization:
+    dtype: float
+    low: !!float 1e-6
+    high: !!float 1e-2
+
+datasets:
+  train: {{ dataset }}/train.jsonl
+  eval:
+    _target_: torch.utils.data.DataLoader
+    dataset:
+      _target_: src.datasets.jsonl.Iter
+      path: {{ dataset }}/eval.jsonl
+    collate_fn:
+      _target_: experiments.bpr.dataset.OnePosCollator
+      num_items: *num_items
+    batch_size: 1
+    shuffle: false
+    pin_memory: true
+    num_workers: 1
+
+optuna_datasets:
+  train: {{ dataset }}/train.jsonl
+  eval:
+    _target_: torch.utils.data.DataLoader
+    dataset:
+      _target_: src.datasets.jsonl.Iter
+      path: {{ dataset }}/eval.jsonl
+    collate_fn:
+      _target_: experiments.bpr.dataset.OnePosCollator
+      num_items: *num_items
+    batch_size: 1
+    shuffle: false
+    pin_memory: true
+    num_workers: 1
+
+model:
+  _target_: experiments.libraries.implicit.Model
+  inner_model:
+    _target_: implicit.{{ device | default("cpu", true) }}.bpr.BayesianPersonalizedRanking
+    factors: {{ embedding_dim | int }}
+    learning_rate: 0.001
+    regularization: 0.001
+    iterations: 100
+    verify_negative_samples: True
+    random_state: {{ seed }}
+  num_users: *num_users
+  num_items: *num_items

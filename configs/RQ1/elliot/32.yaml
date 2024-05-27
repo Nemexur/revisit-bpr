@@ -1,0 +1,26 @@
+---
+experiment:
+  dataset: bpr-netflix
+  data_config:
+    strategy: fixed
+    train_path: ../data/elliot/train.tsv
+    test_path: ../data/elliot/test.tsv
+  top_k: 1000
+  evaluation:
+    simple_metrics: [AUC]
+  models:
+    BPRMF:
+      meta:
+        save_recs: true
+      seed: 13
+      epochs: 99
+      factors: 32
+      lr: 0.046171116497011735
+      bias_regularization: 0.0
+      user_regularization: 0.007438241775809757
+      positive_item_regularization: 0.0000032026139019568313
+      negative_item_regularization: 0.006511133004450027
+      update_negative_item_factors: true
+      update_users: true
+      update_items: true
+      update_bias: true

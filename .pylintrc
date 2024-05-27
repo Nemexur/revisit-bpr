@@ -1,0 +1,41 @@
+[BASIC]
+good-names =
+    a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,_,
+    ok,es,df,vt,cv,f1,tp,tn,fp,fn,wb,to,id,ae,by,
+    X,Y,y_true,y_pred,logger
+
+[DESIGN]
+max-args = 10
+ignored-argument-names = _.*
+max-locals = 20
+max-returns = 3
+max-branches = 12
+max-statements = 100
+max-parents = 7
+max-attributes = 15
+min-public-methods = 0
+max-public-methods = 20
+max-bool-expr = 5
+
+[FORMAT]
+max-line-length = 100
+max-module-lines = 500
+indent-after-paren = 4
+
+[MESSAGE_CONTROL]
+disable =
+    missing-module-docstring,
+    missing-class-docstring,
+    missing-function-docstring,
+    redefined-outer-name,
+    arguments-differ,
+    fixme,
+
+[REPORTS]
+output-format = colorized
+
+[SIMILARITIES]
+min-similarity-lines = 10
+ignore-comments = yes
+ignore-docstrings = yes
+ignore-imports = no

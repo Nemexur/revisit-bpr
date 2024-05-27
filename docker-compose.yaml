@@ -1,0 +1,20 @@
+---
+services:
+  exp:
+    image: revisit-bpr:latest
+    build:
+      dockerfile: docker/${DEVICE:-cpu}.Dockerfile
+      context: .
+    container_name: revisit-bpr-exp
+    ipc: host
+    runtime: ${RUNTIME:-runc}
+    tty: true
+    stdin_open: true
+    environment:
+      PYTHONPATH: "."
+    volumes:
+      - type: bind
+        source: "${PWD}/data"
+        target: /home/src/data
+    command:
+      - bash

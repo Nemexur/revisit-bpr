@@ -1,0 +1,40 @@
+# Jupyter
+.jupyter/
+.ipynb_checkpoints/
+# Common VCS dirs
+.DS_Store
+.git/
+.gitignore
+.bzr/
+.bzrignore
+.hg/
+.hgignore
+.svn/
+# Common backup files
+*.swp
+*.bak
+*.tmp
+*.orig
+# Various IDEs
+.project
+.idea/
+*.tmproj
+.vscode/
+# Python
+__pycache__
+lib/
+lib64/
+*.egg-info/
+.installed.cfg
+*.egg
+eggs/
+.eggs/
+build/
+*env/
+.python-version
+# Docker
+docker/
+docker-compose.yaml
+# Other
+data/
+exps/
