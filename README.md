@@ -1,5 +1,7 @@
 # Revisiting BPR
 
+**This repository contains the source code for our paper RecSys'24 "Revisiting BPR: A Replicability Study of a Common Recommender System Baseline".**
+
 ## Installation
 
 ### 1. Dependencies
