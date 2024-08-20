@@ -9,7 +9,7 @@ The instructions were tested on an Ubuntu 22.04 LTS machine with an NVIDIA A100/
 The command below installs all available dependencies.
 
 ```bash
-poetry install
+poetry install && poetry run pip install cornac==2.0.0
 ```
 
 There are also extra options that one can turn off. Available options: s3, exp, otherlibs, dev. One can disable them like so:
