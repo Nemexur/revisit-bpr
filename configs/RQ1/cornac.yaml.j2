@@ -3,7 +3,7 @@ experiment:
   _target_: experiments.libraries.cornac.Experiment
   metrics:
     auc:
-      _target_: src.metrics.RocAucManySlow
+      _target_: revisit_bpr.metrics.RocAucManySlow
   cornac_metrics:
     auc:
       _target_: cornac.metrics.AUC

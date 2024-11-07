@@ -23,7 +23,7 @@ from tqdm import tqdm
 
 from experiments import settings
 from experiments.trainer import ModelEvents, Trainer
-from src.metrics import MaskedMetric, Metric
+from revisit_bpr.metrics import MaskedMetric, Metric
 
 T = TypeVar("T")
 

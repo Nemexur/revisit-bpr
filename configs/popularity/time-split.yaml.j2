@@ -6,45 +6,45 @@ experiment:
   save_user_metrics: true
   metrics:
     auc:
-      _target_: src.metrics.RocAucManySlow
+      _target_: revisit_bpr.metrics.RocAucManySlow
     ndcg@100:
-      _target_: src.metrics.NDCG
+      _target_: revisit_bpr.metrics.NDCG
       topk: 100
     recall@20:
-      _target_: src.metrics.Recall
+      _target_: revisit_bpr.metrics.Recall
       topk: 20
     recall@50:
-      _target_: src.metrics.Recall
+      _target_: revisit_bpr.metrics.Recall
       topk: 50
     recall@5:
-      _target_: src.metrics.Recall
+      _target_: revisit_bpr.metrics.Recall
       topk: 5
     ndcg@10:
-      _target_: src.metrics.NDCG
+      _target_: revisit_bpr.metrics.NDCG
       topk: 10
     recall@10:
-      _target_: src.metrics.Recall
+      _target_: revisit_bpr.metrics.Recall
       topk: 10
     recall@100:
-      _target_: src.metrics.Recall
+      _target_: revisit_bpr.metrics.Recall
       topk: 100
     ndcg@5:
-      _target_: src.metrics.NDCG
+      _target_: revisit_bpr.metrics.NDCG
       topk: 5
     ndcg@50:
-      _target_: src.metrics.NDCG
+      _target_: revisit_bpr.metrics.NDCG
       topk: 50
     precision@5:
-      _target_: src.metrics.Precision
+      _target_: revisit_bpr.metrics.Precision
       topk: 5
     precision@10:
-      _target_: src.metrics.Precision
+      _target_: revisit_bpr.metrics.Precision
       topk: 10
     precision@50:
-      _target_: src.metrics.Precision
+      _target_: revisit_bpr.metrics.Precision
       topk: 50
     precision@100:
-      _target_: src.metrics.Precision
+      _target_: revisit_bpr.metrics.Precision
       topk: 100
 
 datasets:
@@ -55,7 +55,7 @@ datasets:
       path: {{ dataset }}/full-train.jsonl
       seen_items_path: {{ dataset }}/full-train-user-seen-items.jsonl
     collate_fn:
-      _target_: src.datasets.jsonl.Collator
+      _target_: revisit_bpr.datasets.jsonl.Collator
       pad:
         - seen_items
     batch_size: 128
@@ -76,5 +76,5 @@ datasets:
     num_workers: 3
 
 model:
-  _target_: src.models.popularity.Model
+  _target_: revisit_bpr.models.popularity.Model
   num_items: *num_items

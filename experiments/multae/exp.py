@@ -32,8 +32,8 @@ from experiments.options import (
 )
 from experiments.trainer import ModelEvents, Trainer
 from experiments.utils import flatten_config
-from src.metrics import Metric
-from src.models.ae import MultVAE
+from revisit_bpr.metrics import Metric
+from revisit_bpr.models.ae import MultVAE
 
 
 class MultAEExperiment(Experiment):

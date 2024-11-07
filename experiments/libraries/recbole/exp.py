@@ -20,7 +20,7 @@ from tqdm import tqdm
 from experiments import settings
 from experiments.base import Experiment
 from experiments.utils import flatten_config
-from src.metrics import Metric
+from revisit_bpr.metrics import Metric
 
 
 class RecboleExperiment(Experiment):

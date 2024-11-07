@@ -8,45 +8,45 @@ experiment:
   _target_: experiments.multae.Experiment
   metrics:
     ndcg@100:
-      _target_: src.metrics.NDCG
+      _target_: revisit_bpr.metrics.NDCG
       topk: 100
     ndcg@10:
-      _target_: src.metrics.NDCG
+      _target_: revisit_bpr.metrics.NDCG
       topk: 10
     recall@10:
-      _target_: src.metrics.Recall
+      _target_: revisit_bpr.metrics.Recall
       topk: 10
     recall@100:
-      _target_: src.metrics.Recall
+      _target_: revisit_bpr.metrics.Recall
       topk: 100
     auc:
-      _target_: src.metrics.RocAucManySlow
+      _target_: revisit_bpr.metrics.RocAucManySlow
     ndcg@5:
-      _target_: src.metrics.NDCG
+      _target_: revisit_bpr.metrics.NDCG
       topk: 5
     ndcg@50:
-      _target_: src.metrics.NDCG
+      _target_: revisit_bpr.metrics.NDCG
       topk: 50
     recall@5:
-      _target_: src.metrics.Recall
+      _target_: revisit_bpr.metrics.Recall
       topk: 5
     recall@20:
-      _target_: src.metrics.Recall
+      _target_: revisit_bpr.metrics.Recall
       topk: 20
     recall@50:
-      _target_: src.metrics.Recall
+      _target_: revisit_bpr.metrics.Recall
       topk: 50
     precision@5:
-      _target_: src.metrics.Precision
+      _target_: revisit_bpr.metrics.Precision
       topk: 5
     precision@10:
-      _target_: src.metrics.Precision
+      _target_: revisit_bpr.metrics.Precision
       topk: 10
     precision@50:
-      _target_: src.metrics.Precision
+      _target_: revisit_bpr.metrics.Precision
       topk: 50
     precision@100:
-      _target_: src.metrics.Precision
+      _target_: revisit_bpr.metrics.Precision
       topk: 100
 
 optuna:
@@ -110,10 +110,10 @@ optuna_datasets:
     pin_memory: true
 
 model:
-  _target_: src.models.ae.MultVAE
+  _target_: revisit_bpr.models.ae.MultVAE
   _convert_: all
   encoder:
-    _target_: src.modules.MLP
+    _target_: revisit_bpr.modules.MLP
     linears:
       - _target_: torch.nn.Linear
         in_features: *num_items
@@ -122,12 +122,12 @@ model:
         in_features: 600
         out_features: {{ 200 * 2 | int }}
     activations:
-      - _target_: src.modules.Activation
+      - _target_: revisit_bpr.modules.Activation
         name: tanh
-      - _target_: src.modules.Activation
+      - _target_: revisit_bpr.modules.Activation
         name: identity
   decoder:
-    _target_: src.modules.MLP
+    _target_: revisit_bpr.modules.MLP
     linears:
       - _target_: torch.nn.Linear
         in_features: 200
@@ -136,12 +136,12 @@ model:
         in_features: 600
         out_features: *num_items
     activations:
-      - _target_: src.modules.Activation
+      - _target_: revisit_bpr.modules.Activation
         name: tanh
-      - _target_: src.modules.Activation
+      - _target_: revisit_bpr.modules.Activation
         name: identity
   kl_scheduler:
-    _target_: src.models.ae.kl_scheduler.Linear
+    _target_: revisit_bpr.models.ae.kl_scheduler.Linear
     annealing_steps: 200000
     max_weight: 0.2
   latent_dim: 200

@@ -3,9 +3,9 @@ from typing import NamedTuple
 import torch
 import torch.nn.functional as F
 
-from src.models.ae.kl_scheduler import BaseScheduler, Constant
-from src.models.ae.loss import MultinomialLoss
-from src.modules import MLP
+from revisit_bpr.models.ae.kl_scheduler import BaseScheduler, Constant
+from revisit_bpr.models.ae.loss import MultinomialLoss
+from revisit_bpr.modules import MLP
 
 
 class EncoderOut(NamedTuple):

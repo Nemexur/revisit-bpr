@@ -2,7 +2,7 @@ from typing import Any
 
 import torch
 
-from src.metrics.metric import Metric, prepare_target
+from revisit_bpr.metrics.metric import Metric, prepare_target
 
 
 def exp_dcg(tensor: torch.Tensor) -> torch.Tensor:

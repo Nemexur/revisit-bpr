@@ -5,16 +5,16 @@ experiment:
   _target_: experiments.popularity.Experiment
   metrics:
     auc:
-      _target_: src.metrics.RocAucOne
+      _target_: revisit_bpr.metrics.RocAucOne
 
 datasets:
   train:
     _target_: torch.utils.data.DataLoader
     dataset:
-      _target_: src.datasets.jsonl.Iter
+      _target_: revisit_bpr.datasets.jsonl.Iter
       path: {{ dataset }}/train.jsonl
     collate_fn:
-      _target_: src.datasets.jsonl.Collator
+      _target_: revisit_bpr.datasets.jsonl.Collator
       pad:
         - seen_items
     batch_size: 32
@@ -24,7 +24,7 @@ datasets:
   eval:
     _target_: torch.utils.data.DataLoader
     dataset:
-      _target_: src.datasets.jsonl.Iter
+      _target_: revisit_bpr.datasets.jsonl.Iter
       path: {{ dataset }}/eval.jsonl
     collate_fn:
       _target_: experiments.bpr.dataset.OnePosCollator
@@ -35,5 +35,5 @@ datasets:
     num_workers: 1
 
 model:
-  _target_: src.models.popularity.Model
+  _target_: revisit_bpr.models.popularity.Model
   num_items: *num_items

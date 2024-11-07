@@ -2,9 +2,9 @@ from typing import Any
 
 import torch
 
-from src.metrics.metric import Metric
-from src.metrics.precision import Precision
-from src.metrics.recall import Recall
+from revisit_bpr.metrics.metric import Metric
+from revisit_bpr.metrics.precision import Precision
+from revisit_bpr.metrics.recall import Recall
 
 
 class FBeta(Metric):

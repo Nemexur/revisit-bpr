@@ -1,8 +1,8 @@
 import torch
 import torch.nn.functional as F
 
-from src.modules import MLP
-from src.models.ae.loss import MultinomialLoss
+from revisit_bpr.modules import MLP
+from revisit_bpr.models.ae.loss import MultinomialLoss
 
 
 class Model(torch.nn.Module):

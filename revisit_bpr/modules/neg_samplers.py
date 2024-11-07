@@ -1,6 +1,6 @@
 import torch
 from einops import repeat
-from src.models import BPR
+from revisit_bpr.models import BPR
 from abc import ABC, abstractmethod
 
 

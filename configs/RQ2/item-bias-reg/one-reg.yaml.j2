@@ -10,45 +10,45 @@ experiment:
   early_stopping_patience: 13
   metrics:
     ndcg@100:
-      _target_: src.metrics.NDCG
+      _target_: revisit_bpr.metrics.NDCG
       topk: 100
     recall@100:
-      _target_: src.metrics.Recall
+      _target_: revisit_bpr.metrics.Recall
       topk: 100
     ndcg@10:
-      _target_: src.metrics.NDCG
+      _target_: revisit_bpr.metrics.NDCG
       topk: 10
     recall@10:
-      _target_: src.metrics.Recall
+      _target_: revisit_bpr.metrics.Recall
       topk: 10
     auc:
-      _target_: src.metrics.RocAucManySlow
+      _target_: revisit_bpr.metrics.RocAucManySlow
     ndcg@5:
-      _target_: src.metrics.NDCG
+      _target_: revisit_bpr.metrics.NDCG
       topk: 5
     recall@5:
-      _target_: src.metrics.Recall
+      _target_: revisit_bpr.metrics.Recall
       topk: 5
     recall@20:
-      _target_: src.metrics.Recall
+      _target_: revisit_bpr.metrics.Recall
       topk: 20
     ndcg@50:
-      _target_: src.metrics.NDCG
+      _target_: revisit_bpr.metrics.NDCG
       topk: 50
     recall@50:
-      _target_: src.metrics.Recall
+      _target_: revisit_bpr.metrics.Recall
       topk: 50
     precision@5:
-      _target_: src.metrics.Precision
+      _target_: revisit_bpr.metrics.Precision
       topk: 5
     precision@10:
-      _target_: src.metrics.Precision
+      _target_: revisit_bpr.metrics.Precision
       topk: 10
     precision@50:
-      _target_: src.metrics.Precision
+      _target_: revisit_bpr.metrics.Precision
       topk: 50
     precision@100:
-      _target_: src.metrics.Precision
+      _target_: revisit_bpr.metrics.Precision
       topk: 100
 
 optuna:
@@ -114,10 +114,10 @@ optuna_datasets:
     num_workers: 3
 
 model:
-  _target_: src.models.bpr.Model
+  _target_: revisit_bpr.models.bpr.Model
   fuse_forward: true
   logits_model:
-    _target_: src.models.bpr.MF
+    _target_: revisit_bpr.models.bpr.MF
     item_bias: {{ item_bias | default(true, true) }}
     user_bias: false
     user_emb:

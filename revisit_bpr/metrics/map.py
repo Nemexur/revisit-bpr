@@ -2,7 +2,7 @@ from typing import Any
 
 import torch
 
-from src.metrics.metric import Metric, prepare_target, validate_metric_inputs
+from revisit_bpr.metrics.metric import Metric, prepare_target, validate_metric_inputs
 
 
 class MAP(Metric):

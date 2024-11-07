@@ -2,7 +2,7 @@ from einops import rearrange, reduce, repeat
 import torch
 from torch.nn import init
 
-from src.models.bpr.loss import Loss
+from revisit_bpr.models.bpr.loss import Loss
 
 
 class BaseLogitModel(torch.nn.Module):

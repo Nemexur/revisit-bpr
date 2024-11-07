@@ -17,11 +17,11 @@ from torch.nn.utils.rnn import pad_sequence
 from torch.utils.data import DataLoader, Dataset
 from tqdm import tqdm
 
-from src.datasets.jsonl import Collator
-from src.metrics import NDCG, Metric, Precision, Recall, RocAucManySlow
-from src.models import BPR
-from src.models.bpr import MF
-from src.modules import AdaptiveSampler, Sampler
+from revisit_bpr.datasets.jsonl import Collator
+from revisit_bpr.metrics import NDCG, Metric, Precision, Recall, RocAucManySlow
+from revisit_bpr.models import BPR
+from revisit_bpr.models.bpr import MF
+from revisit_bpr.modules import AdaptiveSampler, Sampler
 
 PBAR_FORMAT = (
     "{desc} [{n_fmt}/{total_fmt}] "

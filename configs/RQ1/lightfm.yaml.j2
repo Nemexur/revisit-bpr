@@ -7,7 +7,7 @@ experiment:
   skip_seen: false
   metrics:
     auc:
-      _target_: src.metrics.RocAucOne
+      _target_: revisit_bpr.metrics.RocAucOne
 
 optuna:
   model.epochs:
@@ -32,7 +32,7 @@ datasets:
   eval:
     _target_: torch.utils.data.DataLoader
     dataset:
-      _target_: src.datasets.jsonl.Iter
+      _target_: revisit_bpr.datasets.jsonl.Iter
       path: {{ dataset }}/eval.jsonl
     collate_fn:
       _target_: experiments.bpr.dataset.OnePosCollator
@@ -47,7 +47,7 @@ optuna_datasets:
   eval:
     _target_: torch.utils.data.DataLoader
     dataset:
-      _target_: src.datasets.jsonl.Iter
+      _target_: revisit_bpr.datasets.jsonl.Iter
       path: {{ dataset }}/eval.jsonl
     collate_fn:
       _target_: experiments.bpr.dataset.OnePosCollator

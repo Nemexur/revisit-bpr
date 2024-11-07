@@ -3,7 +3,7 @@ from typing import Callable
 import torch
 import torch.nn.functional as F
 
-from src.modules.activation import Activation
+from revisit_bpr.modules.activation import Activation
 
 Act = Activation | Callable[[torch.Tensor], torch.Tensor]
 
