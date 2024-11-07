@@ -3,7 +3,11 @@ name = "revisit-bpr"
 version = "0.0.1"
 description = "Repository for the paper: \"Revisiting BPR: A Replicability Study of a Common Recommender System Baseline\""
 readme = "README.md"
-package-mode = false
+package-mode = true
+authors = [
+    "Aleksandr Milogradskii <alex.milogradsky@gmail.com>",
+]
+repository = "https://github.com/nemexur/revisit-bpr"
 
 [tool.poetry.dependencies]
 python = ">=3.10,<3.13"
