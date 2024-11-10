@@ -274,6 +274,10 @@ Scripts that utilize [experiments/s3_run.py](experiments/s3_run.py) have the sam
 
 Below are scripts to train the best models from our experiments.
 
+### Example
+
+A simplified `example.py` script reproduces the best model on the ML-20M dataset with a user-based split.
+
 ### Netflix
 
 ```bash
