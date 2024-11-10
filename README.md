@@ -189,6 +189,10 @@ bin/datasets/format-time-split-multae.sh -o data/yelp/exp data/yelp/exp
 
 ## How to run experiments?
 
+### Example
+
+A simplified [example.py](example.py) script reproduces the best model on the ML-20M dataset with a user-based split.
+
 ### Scripts
 
 Most experiments were carried out using [experiments/run.py](experiments/run.py) or [experiments/s3_run.py](experiments/s3_run.py).
@@ -273,10 +277,6 @@ Scripts that utilize [experiments/s3_run.py](experiments/s3_run.py) have the sam
 ## Experiments
 
 Below are scripts to train the best models from our experiments.
-
-### Example
-
-A simplified `example.py` script reproduces the best model on the ML-20M dataset with a user-based split.
 
 ### Netflix
 
