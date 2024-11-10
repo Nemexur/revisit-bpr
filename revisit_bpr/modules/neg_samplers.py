@@ -1,7 +1,9 @@
-import torch
-from einops import repeat
-from revisit_bpr.models import BPR
 from abc import ABC, abstractmethod
+
+from einops import repeat
+import torch
+
+from revisit_bpr.models import BPR
 
 
 class Sampler(ABC):
@@ -11,6 +13,17 @@ class Sampler(ABC):
 
 
 class UniformSampler(Sampler):
+    """
+    Implementation of Uniform Negative Sampling.
+
+    Parameters
+    ----------
+    num_items : `int`, required
+        Number of items in the dataset.
+    neg_gen : `torch.Generator`, required
+        An instance of torch random numbers generator.
+    """
+
     def __init__(self, num_items: int, neg_gen: torch.Generator) -> None:
         self._neg_gen = neg_gen
         self._item_weights = torch.ones(num_items, dtype=torch.float32, device=self._neg_gen.device)
@@ -25,6 +38,24 @@ class UniformSampler(Sampler):
 
 
 class AdaptiveSampler(Sampler):
+    """
+    Implementation of Adaptive Negative Sampling
+    from `Improving Pairwise Learning for Item Recommendation from Implicit Feedback`.
+
+    Parameters
+    ----------
+    model : `BPR`, required
+        An instance of the BPR model.
+    num_items : `int`, required
+        Number of items in the dataset.
+    sampling_prob : `float`, required
+        Probability of success in Geometric Distribution.
+    neg_gen : `torch.Generator`, required
+        An instance of torch random numbers generator.
+    every : `int`, required
+        Update sampler statistics every N iterations.
+    """
+
     def __init__(
         self,
         model: BPR,

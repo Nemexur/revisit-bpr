@@ -9,6 +9,19 @@ Act = Activation | Callable[[torch.Tensor], torch.Tensor]
 
 
 class MLP(torch.nn.Module):
+    """
+    Stacked FeedForward Layers.
+
+    Parameters
+    ----------
+    linears : `list[torch.nn.Linear]`, required
+        A collection of linear transformations.
+    activations : `Act | list[Act]`, optional (default = F.relu)
+        An activation between linear layers.
+    dropouts : `float | list[float]`, optional (default = 0.0)
+        Dropout module in between FeedForward layers.
+    """
+
     def __init__(
         self,
         linears: list[torch.nn.Linear],

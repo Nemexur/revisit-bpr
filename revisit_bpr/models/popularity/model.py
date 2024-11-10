@@ -2,6 +2,15 @@ import torch
 
 
 class Model(torch.nn.Module):
+    """
+    The Global Item-Popularity model.
+
+    Parameters
+    ----------
+    num_items : `int`, required
+        Number of items in the dataset.
+    """
+
     def __init__(self, num_items: int) -> None:
         super().__init__()
         self.register_buffer("_item_counters", torch.zeros(num_items, dtype=torch.float))
