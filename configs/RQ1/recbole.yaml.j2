@@ -7,7 +7,7 @@ experiment:
   skip_seen: false
   metrics:
     auc:
-      _target_: src.metrics.RocAucOne
+      _target_: revisit_bpr.metrics.RocAucOne
 
 optuna:
   recbole_config.epochs:

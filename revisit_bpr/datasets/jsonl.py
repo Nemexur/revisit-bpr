@@ -10,6 +10,15 @@ from torch.utils.data import Dataset, IterableDataset, get_worker_info
 
 
 class InMemory(Dataset):
+    """
+    In Memory dataset from JsonLines.
+
+    Parameters
+    ----------
+    path : `Path | str`, required
+        File path.
+    """
+
     def __init__(self, path: Path | str) -> None:
         with Path(path).open("r", encoding="utf-8") as file:
             self._samples = [json.loads(line) for line in file]
@@ -22,6 +31,15 @@ class InMemory(Dataset):
 
 
 class Iter(IterableDataset):
+    """
+    Iterable dataset from JsonLines.
+
+    Parameters
+    ----------
+    path : `Path | str`, required
+        File path.
+    """
+
     def __init__(self, path: Path | str) -> None:
         self._path = Path(path)
 
@@ -36,6 +54,17 @@ class Iter(IterableDataset):
 
 
 class Collator:
+    """
+    Collate Function as an object.
+
+    Parameters
+    ----------
+    pad : `list[str] | None`, optional (default = None)
+        List of keys to apply padding to.
+    padding_value : `float`, optional (default = 0)
+        Value for padded elements.
+    """
+
     def __init__(self, pad: list[str] | None = None, padding_value: float = 0) -> None:
         self._pad = set(pad or [])
         self._padding_value = padding_value

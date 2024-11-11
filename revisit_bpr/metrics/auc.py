@@ -5,7 +5,7 @@ from operator import mul
 from einops import rearrange
 import torch
 
-from src.metrics.metric import MaskedMetric
+from revisit_bpr.metrics.metric import MaskedMetric
 
 
 class RocAucOne(MaskedMetric):

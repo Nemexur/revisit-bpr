@@ -2,7 +2,7 @@ from einops import rearrange, reduce, repeat
 import torch
 from torch.nn import init
 
-from src.models.bpr.loss import Loss
+from revisit_bpr.models.bpr.loss import Loss
 
 
 class BaseLogitModel(torch.nn.Module):
@@ -11,6 +11,20 @@ class BaseLogitModel(torch.nn.Module):
 
 
 class Model(torch.nn.Module):
+    """
+    The BPR model.
+
+    Parameters
+    ----------
+    logits_model : `BaseLogitModel`, required
+        The model that produces logits for a user-item pair.
+    reg_alphas : `dict[str, float] | None`, optional (default = None)
+        Regularization alphas. It supports these keys: user, item, neg, all.
+        User, item, and neg override all if present.
+    fuse_forward : `bool`, optional (default = False)
+        Simple optimization in the BPR model. It fuses the computation of user-item and user-neg logits.
+    """
+
     def __init__(
         self,
         logits_model: BaseLogitModel,

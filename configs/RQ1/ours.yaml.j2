@@ -7,7 +7,7 @@ experiment:
   skip_seen: false
   metrics:
     auc:
-      _target_: src.metrics.RocAucOne
+      _target_: revisit_bpr.metrics.RocAucOne
 
 optuna:
   epochs:
@@ -38,10 +38,10 @@ datasets:
   train:
     _target_: torch.utils.data.DataLoader
     dataset:
-      _target_: src.datasets.jsonl.Iter
+      _target_: revisit_bpr.datasets.jsonl.Iter
       path: {{ dataset }}/train.jsonl
     collate_fn:
-      _target_: src.datasets.jsonl.Collator
+      _target_: revisit_bpr.datasets.jsonl.Collator
       pad:
         - seen_items
     batch_size: 16
@@ -51,7 +51,7 @@ datasets:
   eval:
     _target_: torch.utils.data.DataLoader
     dataset:
-      _target_: src.datasets.jsonl.Iter
+      _target_: revisit_bpr.datasets.jsonl.Iter
       path: {{ dataset }}/eval.jsonl
     collate_fn:
       _target_: experiments.bpr.dataset.OnePosCollator
@@ -65,10 +65,10 @@ optuna_datasets:
   train:
     _target_: torch.utils.data.DataLoader
     dataset:
-      _target_: src.datasets.jsonl.Iter
+      _target_: revisit_bpr.datasets.jsonl.Iter
       path: {{ dataset }}/train.jsonl
     collate_fn:
-      _target_: src.datasets.jsonl.Collator
+      _target_: revisit_bpr.datasets.jsonl.Collator
       pad:
         - seen_items
     batch_size: 16
@@ -78,7 +78,7 @@ optuna_datasets:
   eval:
     _target_: torch.utils.data.DataLoader
     dataset:
-      _target_: src.datasets.jsonl.Iter
+      _target_: revisit_bpr.datasets.jsonl.Iter
       path: {{ dataset }}/eval.jsonl
     collate_fn:
       _target_: experiments.bpr.dataset.OnePosCollator
@@ -89,10 +89,10 @@ optuna_datasets:
     num_workers: 1
 
 model:
-  _target_: src.models.bpr.Model
+  _target_: revisit_bpr.models.bpr.Model
   fuse_forward: true
   logits_model:
-    _target_: src.models.bpr.MF
+    _target_: revisit_bpr.models.bpr.MF
     item_bias: {{ item_bias | default(true, true) }}
     user_bias: false
     user_emb:
